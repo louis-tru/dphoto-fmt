@@ -3,11 +3,10 @@
  * @date 2019-11-27
  */
 
-var keys = require('nxkit/keys');
-var fs = require('fs');
-var {
-	FastMessageTransferCenter, 
-	FastMessageTransferCenterDelegate} = require('nxkit/fmt');
+const keys = require('nxkit/keys');
+const fs = require('fs');
+const { FastMessageTransferCenter, 
+	FastMessageTransferCenterDelegate } = require('nxkit/fmt');
 const ADMIN_CACHE_TIME = 1e5; // 100s
 
 /**
@@ -31,14 +30,13 @@ class Delegate extends FastMessageTransferCenterDelegate {
 			}
 			if (s) {
 				this.m_admin = keys.parseFile(s);
-				this.m_adminTime = Date.now();
+				this.m_adminTime = Date.now() + ADMIN_CACHE_TIME;
 			}
 		}
 		return this.m_admin[id];
 	}
 
-	authFnode(fnodeRemoteService) {
-		// TODO ...
+	authFnode(fnodeRemoteService) { // TODO ...
 		return fnodeRemoteService.headers.certificate;
 	}
 
@@ -59,6 +57,13 @@ class Delegate extends FastMessageTransferCenterDelegate {
 		return false;
 	}
 
+	triggerTo(id, event, data, sender) {
+		return super.triggerTo(id, event, data, sender);
+	}
+
+	callTo(id, method, data, timeout, sender) {
+		return super.callTo(id, method, data, timeout, sender);
+	}
 }
 
 /**
