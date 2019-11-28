@@ -5,13 +5,15 @@
 
 var keys = require('nxkit/keys');
 var fs = require('fs');
-var {FastMessageTransferCenter} = require('nxkit/fmt');
+var {
+	FastMessageTransferCenter, 
+	FastMessageTransferCenterDelegate} = require('nxkit/fmt');
 const ADMIN_CACHE_TIME = 1e5; // 100s
 
 /**
- * @class Center
+ * @class Delegate
  */
-class Center extends FastMessageTransferCenter {
+class Delegate extends FastMessageTransferCenterDelegate {
 
 	constructor(...args) {
 		super(...args);
@@ -57,6 +59,16 @@ class Center extends FastMessageTransferCenter {
 		return false;
 	}
 
+}
+
+/**
+ * @class Center
+ */
+class Center extends FastMessageTransferCenter {
+	constructor(...args) {
+		super(...args);
+		this.setDelegate(new Delegate());
+	}
 }
 
 module.exports = Center;
