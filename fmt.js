@@ -7,6 +7,7 @@ var utils = require('nxkit');
 var Center = require('./center');
 var server = require('nxkit/server');
 var magic = require('./magic');
+var log = require('./log');
 
 module.exports = function(config = utils.config) {
 	// console.log(config);
