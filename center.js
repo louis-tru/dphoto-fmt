@@ -20,7 +20,7 @@ class Delegate extends FastMessageTransferCenterDelegate {
 		this.m_adminTime = 0;
 	}
 
-	_readAdminInfo(id) {
+	_readAdminInfo(user) {
 		if (this.m_adminTime < Date.now()) {
 			var s;
 			if (fs.existsSync(__dirname + '/admin')) {
@@ -33,7 +33,7 @@ class Delegate extends FastMessageTransferCenterDelegate {
 				this.m_adminTime = Date.now() + ADMIN_CACHE_TIME;
 			}
 		}
-		return this.m_admin[id];
+		return this.m_admin[user];
 	}
 
 	authFnode(fnodeRemoteService) { // TODO ...
@@ -41,15 +41,15 @@ class Delegate extends FastMessageTransferCenterDelegate {
 	}
 
 	auth(fmtService) {
-		var {certificate,role} = fmtService.headers;
+		var {certificate,role,user} = fmtService.headers;
 		if (role == 'device') {
 			// TODO auth device ...
 			return certificate;
 		} else if (role == 'admin') {
-			var admin = this._readAdminInfo(fmtService.id);
-			if (admin) {
+			var passwd = this._readAdminInfo(user);
+			if (passwd) {
 				// TODO auth admin ...
-				if (admin == certificate) {
+				if (passwd == certificate) {
 					return true;
 				}
 			}

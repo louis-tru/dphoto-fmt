@@ -6,6 +6,7 @@
 var utils = require('nxkit');
 var Center = require('./center');
 var server = require('nxkit/server');
+var magic = require('./magic');
 
 module.exports = function(config = utils.config) {
 	// console.log(config);
@@ -18,6 +19,7 @@ module.exports = function(config = utils.config) {
 		printLog: /*utils.config.moreLog || */utils.dev,
 		defaults: ['index.html', 'index.htm', 'default.html'],
 		...config,
+		router: magic.router,
 	});
 
 	s.start(); // start web server
