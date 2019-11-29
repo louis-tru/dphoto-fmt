@@ -9,7 +9,7 @@ endif
 .PHONY: dev install install_dfmt
 
 dev:
-	$(NODE) --inspect=0.0.0.0:9225 main_fmt.js
+	$(NODE) --inspect=0.0.0.0:9226 main_fmt.js
 
 install_dfmt: install
 	@if [ $(UNAME) == "Linux" ]; then \
