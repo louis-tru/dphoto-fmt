@@ -7,6 +7,6 @@
 		"dfmt": "bin.js"
 	},
 	"dependencies": {
-		"nxkit": "~0.9.18"
+		"nxkit": "~0.9.19"
 	}
 }
