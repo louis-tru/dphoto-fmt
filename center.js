@@ -64,6 +64,11 @@ class Delegate extends FastMessageTransferCenterDelegate {
 	callTo(id, method, data, timeout, sender) {
 		return super.callTo(id, method, data, timeout, sender);
 	}
+
+	sendTo(id, method, data, sender) {
+		return super.sendTo(id, method, data, sender);
+	}
+
 }
 
 /**
