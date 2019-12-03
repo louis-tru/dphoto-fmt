@@ -25,7 +25,7 @@ class MagicForward extends ctr.ViewController {
 		var [statusCode,headers,data] = 
 			await fmtc.client(sn).call('dmagic', [name,params,headers]);
 
-		this.markResponseOk();
+		this.markResponse();
 
 		for (var [key,val] of Object.entries(headers)) {
 			res.setHeader(key, val);
