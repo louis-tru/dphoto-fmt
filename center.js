@@ -47,7 +47,7 @@ class Delegate extends FastMessageTransferCenterDelegate {
 		var sn = fmtService.id;
 		var {certificate,role,user} = fmtService.headers;
 		if (role == 'device') {
-			var [data] = await db.exec(
+			var [data] = await this.m_db.exec(
 				`select * from ch_device where device_id = '${certificate}' and device_sn = '${sn}'`);
 			if (data.rows.length) {
 				return { role, user: sn };
