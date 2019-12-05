@@ -1,6 +1,7 @@
 
 NODE 	?= node
 UNAME ?= $(shell uname)
+CWD   ?= $(shell pwd)
 
 ifneq ($(USER),root)
 	SUDO = "sudo"
@@ -31,3 +32,4 @@ install:
 	npm install --unsafe-perm
 	$(SUDO) npm i -g --unsafe-perm
 	@$(call lc_link,$(NGUI)/libs/nxkit)
+	@$(call lc_link,$(CWD)/../crypto-tx)
