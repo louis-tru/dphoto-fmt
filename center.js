@@ -10,6 +10,7 @@ const { FastMessageTransferCenter,
 	FastMessageTransferCenterDelegate } = require('nxkit/fmt');
 const ADMIN_CACHE_TIME = 1e5; // 100s
 const mysql = require('nxkit/mysql');
+const crypto = require('crypto-tx');
 
 /**
  * @class Delegate
@@ -45,7 +46,7 @@ class Delegate extends FastMessageTransferCenterDelegate {
 
 	async auth(fmtService) {
 		var sn = fmtService.id;
-		var {certificate,role,user} = fmtService.headers;
+		var {certificate,role,user,st,sign} = fmtService.headers;
 		if (role == 'device') {
 			var [data] = await this.m_db.exec(
 				`select * from ch_device where device_id = '${certificate}' and device_sn = '${sn}'`);
@@ -53,10 +54,14 @@ class Delegate extends FastMessageTransferCenterDelegate {
 				return { role, user: sn };
 			}
 		} else if (role == 'admin') {
-			var passwd = this._readAdminInfo(user);
-			if (passwd) {
-				// TODO auth admin ...
-				if (passwd == certificate) {
+			var publicKey = this._readAdminInfo(user);
+			if (publicKey) {
+				publicKey = Buffer.from(publicKey, 'hex');
+				var key = 'a4dd53f2fefde37c07ac4824cf7086439633e1a357daacc3aaa16418275a9e40';
+				var hash = Buffer.from(crypto.keccak(user + role + st + key).data);
+				var sign = Buffer.from(sign, 'base64');
+				// console.log('sign confirm dev', '0x'+ pkey);
+				if ( crypto.verify(hash, publicKey, sign.slice(0, 64)) ) {
 					return { name: user, role };
 				}
 			}
