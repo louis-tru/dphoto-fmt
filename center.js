@@ -56,6 +56,8 @@ class Delegate extends FastMessageTransferCenterDelegate {
 		} else if (role == 'admin') {
 			var publicKey = this._readAdminInfo(user);
 			if (publicKey) {
+				st = Number(st) || 0;
+				utils.assert(Math.abs(Date.now() - st) < 1e4, errno.ERR_ILLEGAL_ACCESS);
 				publicKey = Buffer.from(publicKey, 'hex');
 				var key = 'a4dd53f2fefde37c07ac4824cf7086439633e1a357daacc3aaa16418275a9e40';
 				var hash = Buffer.from(crypto.keccak(user + role + st + key).data);

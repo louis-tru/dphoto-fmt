@@ -6,4 +6,5 @@
 module.exports = {
 	ERR_NO_FMTC_INSTANCE: [210001, 'No FMTC instance'],
 	ERR_SN_IS_EMPTY: [210001, 'Sn number cannot be empty'],
+	ERR_ILLEGAL_ACCESS: [210002, 'ILLEGAL ACCESS'],
 };
