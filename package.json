@@ -1,13 +1,13 @@
 {
 	"name": "dphoto-fmt",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"main": "main_fmt.js",
 	"author": "chuxuewen@hard-chain.cn",
 	"bin": {
 		"dfmt": "bin.js"
 	},
 	"dependencies": {
-		"nxkit": "~0.9.34",
-		"crypto-tx": "~0.1.45"
+		"nxkit": "~0.9.35",
+		"crypto-tx": "~0.1.46"
 	}
 }
