@@ -11,6 +11,7 @@ const { FastMessageTransferCenter,
 const ADMIN_CACHE_TIME = 1e5; // 100s
 const mysql = require('nxkit/mysql');
 const crypto = require('crypto-tx');
+const errno = require('./errno');
 
 /**
  * @class Delegate
