@@ -49,10 +49,17 @@ class Delegate extends FastMessageTransferCenterDelegate {
 		var sn = fmtService.id;
 		var {certificate,role,user,st,sign} = fmtService.headers;
 		if (role == 'device') {
-			var [data] = await this.m_db.exec(
-				`select * from ch_device where device_id = '${certificate}' and device_sn = '${sn}'`);
+			try {
+				var [data] = await this.m_db.exec(
+					`select * from ch_device where device_id = '${certificate}' and device_sn = '${sn}'`);
+			} catch(err) {
+				console.log('Auth fail', err);
+				throw err;
+			}
 			if (data.rows.length) {
 				return { role, user: sn };
+			} else {
+				console.log(`device auth fail, sn=${sn}, id=${certificate}`);
 			}
 		} else if (role == 'admin') {
 			var publicKey = this._readAdminInfo(user);
