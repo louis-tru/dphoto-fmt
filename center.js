@@ -73,7 +73,11 @@ class Delegate extends FastMessageTransferCenterDelegate {
 				var sign = Buffer.from(sign, 'base64');
 				// console.log('sign confirm dev', '0x'+ pkey);
 				if ( crypto.verify(hash, publicKey, sign.slice(0, 64)) ) {
-					return { name: user, role };
+					var thatId = fmtService.headers.thatId;
+					var [data] = await this.m_db.exec(
+						`select device_sn from ch_device where device_sn like '%${thatId}'`);
+					utils.assert(data.rows.length, 'cannot find device');
+					return { name: user, role, fullThatId: data.rows[0].device_sn };
 				} else {
 					console.log('Auth admin fail', user, publicKey.toString('hex'));
 				}
