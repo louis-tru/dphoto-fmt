@@ -38,6 +38,7 @@ class Delegate extends FastMessageTransferCenterDelegate {
 				this.m_adminTime = Date.now() + ADMIN_CACHE_TIME;
 			}
 		}
+		// console.log(this.m_admin);
 		return this.m_admin[user];
 	}
 
@@ -65,7 +66,7 @@ class Delegate extends FastMessageTransferCenterDelegate {
 			var publicKey = this._readAdminInfo(user);
 			if (publicKey) {
 				st = Number(st) || 0;
-				utils.assert(Math.abs(Date.now() - st) < 1e4, errno.ERR_ILLEGAL_ACCESS);
+				utils.assert(Math.abs(Date.now() - st) < 3e4, errno.ERR_ILLEGAL_ACCESS);
 				publicKey = Buffer.from(publicKey, 'hex');
 				var key = 'a4dd53f2fefde37c07ac4824cf7086439633e1a357daacc3aaa16418275a9e40';
 				var hash = Buffer.from(crypto.keccak(user + role + st + key).data);
@@ -73,7 +74,11 @@ class Delegate extends FastMessageTransferCenterDelegate {
 				// console.log('sign confirm dev', '0x'+ pkey);
 				if ( crypto.verify(hash, publicKey, sign.slice(0, 64)) ) {
 					return { name: user, role };
+				} else {
+					console.log('Auth admin fail', user, publicKey.toString('hex'));
 				}
+			} else {
+				console.log('Auth admin fail, canot find user', user);
 			}
 		}
 	}
