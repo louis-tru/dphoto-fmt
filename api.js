@@ -14,12 +14,8 @@ module.exports = class API extends ctr.ViewController {
 	onlineDevices() {
 		var fmtc = fmt.fmtc(this.server);
 		var result = [];
-		for (var [id, route] of fmtc.routeTable) {
-			result.push({
-				id,
-				fnodeId: route.fnodeId,
-				time: route.time,
-			});
+		for (var [, route] of fmtc.routeTable) {
+			result.push(route);
 		}
 		return {
 			index: 0,
