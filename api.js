@@ -21,6 +21,10 @@ module.exports = class API extends ctr.ViewController {
 				time: route.time,
 			});
 		}
-		return result;
+		return {
+			index: 0,
+			total: result.length,
+			data: result,
+		};
 	}
 }
