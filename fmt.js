@@ -6,11 +6,21 @@
 var utils = require('nxkit');
 var Center = require('./center');
 var server = require('nxkit/server');
-var magic = require('./magic');
 var log = require('./log');
+var service = require('nxkit/service');
 
 module.exports = function(config = utils.config) {
-	// console.log(config);
+
+	var router = [
+		{
+			match: '/dmagic-api/{name}',
+			service: '__mf',
+			action: 'index',
+		},
+	];
+
+	service.set('__mf', require('./magic'));
+	service.set('api', require('./api'));
 
 	var s = new server.Server({
 		host: '127.0.0.1',
@@ -20,7 +30,7 @@ module.exports = function(config = utils.config) {
 		printLog: /*utils.config.moreLog || */utils.dev,
 		defaults: ['index.html', 'index.htm', 'default.html'],
 		...config,
-		router: magic.router,
+		router: router,
 	});
 
 	s.start(); // start web server

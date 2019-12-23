@@ -4,7 +4,6 @@
  */
 
 var utils = require('nxkit');
-var service = require('nxkit/service');
 var ctr = require('nxkit/ctr');
 var fmt = require('nxkit/fmt');
 var errno = require('./errno');
@@ -12,7 +11,7 @@ var errno = require('./errno');
 /**
  * @class MagicForward
 */
-class MagicForward extends ctr.ViewController {
+module.exports = class MagicForward extends ctr.ViewController {
 
 	async index({name, __sn, ...params }) {
 		var { sn, ...headers } = this.headers;
@@ -34,15 +33,3 @@ class MagicForward extends ctr.ViewController {
 		res.end(data);
 	}
 }
-
-service.set('__mf', MagicForward);
-
-module.exports = {
-	router: [
-		{
-			match: '/dmagic-api/{name}',
-			service: '__mf',
-			action: 'index',
-		}
-	],
-};
