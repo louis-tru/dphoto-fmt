@@ -66,12 +66,16 @@ class Delegate extends FastMessageTransferCenterDelegate {
 			var publicKey = this._readAdminInfo(user);
 			if (publicKey) {
 				st = Number(st) || 0;
-				utils.assert(Math.abs(Date.now() - st) < 3e4, errno.ERR_ILLEGAL_ACCESS);
+				// utils.assert(Math.abs(Date.now() - st) < 3e4, errno.ERR_ILLEGAL_ACCESS);
+				if (Math.abs(Date.now() - st) > 3e4) {
+					console.log('ERR_ILLEGAL_ACCESS, date not match, Date.now() - st', Date.now() - st);
+					throw Error.new(errno.ERR_ILLEGAL_ACCESS);
+				}
 				publicKey = Buffer.from(publicKey, 'hex');
 				var key = 'a4dd53f2fefde37c07ac4824cf7086439633e1a357daacc3aaa16418275a9e40';
 				var hash = Buffer.from(crypto.keccak(user + role + st + key).data);
 				var sign = Buffer.from(sign, 'base64');
-				// console.log('sign confirm dev', '0x'+ pkey);
+				// console.log('sign confirm dev', '0x'+ publicKey);
 				if ( crypto.verify(hash, publicKey, sign.slice(0, 64)) ) {
 					var [data] = await this.m_db.exec(
 						`select device_sn from ch_device where device_sn like '%${fmtService.headers.thatid}'`);
