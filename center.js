@@ -3,8 +3,8 @@
  * @date 2019-11-27
  */
 
-const utils = require('nxkit');
-const keys = require('nxkit/keys');
+const utils = require('nxkit').default;
+const keys = require('nxkit/keys').default;
 const fs = require('fs');
 const { FastMessageTransferCenter, 
 	FastMessageTransferCenterDelegate } = require('nxkit/fmt');

@@ -4,7 +4,7 @@
  */
 
 var ctr = require('nxkit/ctr');
-var fmt = require('nxkit/fmt');
+var fmt = require('nxkit/fmt').default;
 
 /**
  * @class MagicForward

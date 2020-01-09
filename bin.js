@@ -4,7 +4,7 @@
  * @date 2019-11-27
  */
 
-var utils = require('nxkit');
+var utils = require('nxkit').default;
 var start = require('./fmt');
 var arguments = require('nxkit/arguments');
 var opts = arguments.options;

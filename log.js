@@ -3,7 +3,7 @@
  * @date 2019-11-29
  */
 
-var utils = require('nxkit');
+var utils = require('nxkit').default;
 var paths = require('./paths');
 var log = require('nxkit/log');
 

@@ -3,7 +3,7 @@
  * @date 2019-11-27
  */
 
-const utils = require('nxkit');
+const utils = require('nxkit').default;
 const mysql = require('nxkit/mysql');
 
 async function test() {
