@@ -110,7 +110,7 @@ class Delegate extends FastMessageTransferCenterDelegate {
 class Center extends FastMessageTransferCenter {
 	constructor(...args) {
 		super(...args);
-		this.setDelegate(new Delegate());
+		new Delegate(this);
 	}
 }
 

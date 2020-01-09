@@ -22,7 +22,7 @@ module.exports = function(config = utils.config) {
 	service.set('__mf', require('./magic'));
 	service.set('api', require('./api'));
 
-	var s = new server.Server({
+	var s = new server.ServerIMPL({
 		host: '127.0.0.1',
 		port: 8091,
 		root: `${__dirname}/public`,
