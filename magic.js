@@ -30,6 +30,6 @@ module.exports = class MagicForward extends ctr.ViewController {
 			res.setHeader(key, val);
 		}
 		res.writeHead(statusCode);
-		res.end(data);
+		res.end(Buffer.from(data.buffer, data.byteOffset, data.byteLength));
 	}
 }
