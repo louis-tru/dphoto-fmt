@@ -77,10 +77,10 @@ class Delegate extends FastMessageTransferCenterDelegate {
 				var sign = Buffer.from(sign, 'base64');
 				// console.log('sign confirm dev', '0x'+ publicKey);
 				if ( crypto.verify(hash, publicKey, sign.slice(0, 64)) ) {
-					console.log('query mysql 0');
+					console.log('query mysql', fmtService.headers.thatid);
 					var [data] = await this.m_db.exec(
 						`select device_sn from ch_device where device_sn like '%${fmtService.headers.thatid}'`);
-					console.log('query mysql 1');
+					console.log('query mysql ok', fmtService.headers.thatid);
 					utils.assert(data.rows.length, 'cannot find device');
 					return { name: user, role, fullThatId: data.rows[0].device_sn };
 				} else {
