@@ -7,7 +7,7 @@
 		"dfmt": "bin.js"
 	},
 	"dependencies": {
-		"nxkit": "~0.10.42",
+		"nxkit": "~0.10.43",
 		"crypto-tx": "~0.2.2"
 	}
 }
