@@ -13,7 +13,7 @@ module.exports = function(config = utils.config) {
 
 	var router = [
 		{
-			match: '/dmagic-api/{name}',
+			match: '/dmagic-api/{__name}',
 			service: '__mf',
 			action: 'index',
 		},

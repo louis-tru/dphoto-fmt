@@ -13,7 +13,7 @@ var errno = require('./errno');
 */
 module.exports = class MagicForward extends ctr.ViewController {
 
-	async index({name, __sn, ...params }) {
+	async index({__name, __sn, ...params }) {
 		var { sn, ...headers } = this.headers;
 		var fmtc = fmt.fmtc(this.server);
 		sn = sn || __sn;
@@ -22,7 +22,7 @@ module.exports = class MagicForward extends ctr.ViewController {
 
 		var res = this.response;
 		var [statusCode,headers,data] = 
-			await fmtc.client(sn).call('dmagic', [name,params,headers]);
+			await fmtc.client(sn).call('dmagic', [__name,params,headers]);
 
 		this.markReturnInvalid();
 
