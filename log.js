@@ -4,7 +4,7 @@
  */
 
 var paths = require('./paths');
-var log = require('nxkit/log');
+var log = require('somes/log');
 
 process.on('uncaughtException', function(err) {
 	console.error(err);

@@ -3,13 +3,13 @@
  * @date 2019-11-27
  */
 
-const utils = require('nxkit').default;
-const keys = require('nxkit/keys').default;
+const utils = require('somes').default;
+const keys = require('somes/keys').default;
 const fs = require('fs');
 const { FastMessageTransferCenter, 
-	FastMessageTransferCenterDelegate } = require('nxkit/fmt');
+	FastMessageTransferCenterDelegate } = require('somes/fmt');
 const ADMIN_CACHE_TIME = 1e5; // 100s
-const mysql = require('nxkit/mysql');
+const mysql = require('somes/mysql');
 const crypto = require('crypto-tx');
 const errno = require('./errno');
 

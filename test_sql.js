@@ -3,8 +3,8 @@
  * @date 2019-11-27
  */
 
-const utils = require('nxkit').default;
-const mysql = require('nxkit/mysql');
+const utils = require('somes').default;
+const mysql = require('somes/mysql');
 
 async function test() {
 	var db = new mysql.Mysql(utils.config.db);

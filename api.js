@@ -3,8 +3,8 @@
  * @date 2019-12-24
  */
 
-var ctr = require('nxkit/ctr');
-var fmt = require('nxkit/fmt').default;
+var ctr = require('somes/ctr');
+var fmt = require('somes/fmt').default;
 
 /**
  * @class MagicForward

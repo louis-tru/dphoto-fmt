@@ -19,17 +19,6 @@ install_dfmt: install
 		$(SUDO) systemctl daemon-reload; \
 	fi
 
-lc_link = if [ -d $1 ]; then \
-	if [ -L $1 ]; then \
-		rm node_modules/$(shell basename $1); \
-	else \
-		rm -rf node_modules/$(shell basename $1);\
-	fi; \
-	ln -s $1 node_modules/$(shell basename $1); \
-fi
-
 install:
 	npm install --unsafe-perm
 	$(SUDO) npm i -g --unsafe-perm
-	@$(call lc_link,$(NGUI)/libs/nxkit)
-	@$(call lc_link,$(CWD)/../crypto-tx)

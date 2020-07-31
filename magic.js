@@ -3,9 +3,9 @@
  * @date 2019-11-29
  */
 
-var utils = require('nxkit').default;
-var ctr = require('nxkit/ctr');
-var fmt = require('nxkit/fmt').default;
+var utils = require('somes').default;
+var ctr = require('somes/ctr');
+var fmt = require('somes/fmt').default;
 var errno = require('./errno');
 
 /**

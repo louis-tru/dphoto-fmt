@@ -3,11 +3,11 @@
  * @date 2019-11-27
  */
 
-var utils = require('nxkit').default;
+var utils = require('somes').default;
 var Center = require('./center');
-var server = require('nxkit/server');
+var server = require('somes/server');
 var log = require('./log');
-var service = require('nxkit/service').default;
+var service = require('somes/service').default;
 
 module.exports = function(config = utils.config) {
 
