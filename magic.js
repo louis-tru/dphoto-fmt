@@ -22,7 +22,7 @@ module.exports = class MagicForward extends ctr.ViewController {
 
 		var res = this.response;
 		var [statusCode,headers,data] = 
-			await fmtc.client(sn).call('dmagic', [__name,params,headers]);
+			await fmtc.client(sn).call('dmagic', [__name, params, { ...headers, 'content-type': 'application/json' }]);
 
 		this.markReturnInvalid();
 
