@@ -20,13 +20,15 @@ module.exports = class MagicForward extends ctr.ViewController {
 		utils.assert(fmtc, errno.ERR_NO_FMTC_INSTANCE);
 		utils.assert(sn, errno.ERR_SN_IS_EMPTY);
 
+		delete headers['content-type']; // application/json is used by default after deletion
+
 		var res = this.response;
-		var [statusCode,headers,data] = 
-			await fmtc.client(sn).call('dmagic', [__name, params, { ...headers, 'content-type': 'application/json' }]);
+		var [statusCode,response_headers,data] = 
+			await fmtc.client(sn).call('dmagic', [__name, params, headers]);
 
 		this.markReturnInvalid();
 
-		for (var [key,val] of Object.entries(headers)) {
+		for (var [key,val] of Object.entries(response_headers)) {
 			res.setHeader(key, val);
 		}
 		res.writeHead(statusCode);
