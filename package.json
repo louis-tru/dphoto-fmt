@@ -7,7 +7,7 @@
 		"dfmt": "bin.js"
 	},
 	"dependencies": {
-		"somes": "~0.10.86",
+		"somes": "~0.10.89",
 		"crypto-tx": "~0.2.9"
 	}
 }
