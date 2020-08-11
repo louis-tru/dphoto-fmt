@@ -9,8 +9,8 @@ var server = require('somes/server');
 var log = require('./log');
 var service = require('somes/service').default;
 
-require('http').globalAgent.maxSockets = 1000000;
-require('https').globalAgent.maxSockets = 1000000
+// require('http').globalAgent.maxSockets = 1000000;
+// require('https').globalAgent.maxSockets = 1000000
 
 module.exports = function(config = utils.config) {
 
@@ -35,6 +35,9 @@ module.exports = function(config = utils.config) {
 		...config,
 		router: router,
 	});
+
+	s.impl.maxSockets = 1000000;
+	s.impl.maxConnections = 1000000;
 
 	s.start(); // start web server
 
