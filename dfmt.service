@@ -8,6 +8,7 @@ User=root
 ExecStart=/usr/local/bin/dfmt
 Restart=always
 RestartSec=3
+LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
