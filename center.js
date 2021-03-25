@@ -23,6 +23,7 @@ class Delegate extends FastMessageTransferCenterDelegate {
 		this.m_admin = {};
 		this.m_adminTime = 0;
 		this.m_db = new mysql.Mysql(utils.config.db);
+		this._insidesDevices = utils.config.insides_devices || {};
 	}
 
 	_readAdminInfo(user) {
@@ -47,22 +48,27 @@ class Delegate extends FastMessageTransferCenterDelegate {
 	}
 
 	async auth(fmtService) {
-		var sn = fmtService.id;
+		var id = fmtService.id;
 		var {certificate,role,user,st,sign} = fmtService.headers;
 		if (role == 'device') {
+			var verify = this._insidesDevices[id];
+			if (verify && verify == certificate) {
+				return { role, user: id };
+			}
 			try {
 				var [data] = await this.m_db.exec(
-					`select * from ch_device where device_id = '${certificate}' and device_sn = '${sn}'`);
+					`select * from ch_device where device_id = '${certificate}' and device_sn = '${id}'`);
 			} catch(err) {
 				console.log('Auth fail', err);
 				throw err;
 			}
 			if (data.rows.length) {
-				return { role, user: sn };
+				return { role, user: id };
 			} else {
-				console.log(`device auth fail, sn=${sn}, id=${certificate}`);
+				console.log(`device auth fail, sn=${id}, id=${certificate}`);
 			}
-		} else if (role == 'admin') {
+		}
+		else if (role == 'admin') {
 			var publicKey = this._readAdminInfo(user);
 			if (publicKey) {
 				st = Number(st) || 0;

@@ -10,4 +10,5 @@ module.exports = {
 		password: '',
 		database: 'chain',
 	},
+	insides_devices: {},
 };
