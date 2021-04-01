@@ -93,7 +93,7 @@ class Delegate extends FastMessageTransferCenterDelegate {
 							`select device_sn from ch_device where device_sn like '%${thatid}'`);
 						console.log('query mysql ok', thatid);
 						utils.assert(data.rows.length, 'cannot find device');
-						thatid = data.rows[0].device_snl
+						thatid = data.rows[0].device_sn;
 					}
 					return { name: user, role, fullThatId: thatid };
 				} else {
