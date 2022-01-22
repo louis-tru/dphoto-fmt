@@ -1,6 +1,6 @@
 {
 	"name": "dphoto-fmt",
-	"version": "0.1.26",
+	"version": "0.1.27",
 	"main": "main_fmt.js",
 	"author": "chuxuewen@hard-chain.cn",
 	"bin": {
