@@ -7,7 +7,7 @@ var fs = require('somes/fs');
 var variable = __dirname + '/var';
 
 fs.mkdir_p_sync(variable);
-fs.writeFileSync(`${variable}/pid`, process.pid);
+fs.writeFileSync(`${variable}/pid`, String(process.pid));
 
 module.exports = {
 	var: variable,
