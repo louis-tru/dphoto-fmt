@@ -69,8 +69,10 @@ class Delegate extends FastMessageTransferCenterDelegate {
 			}
 		}
 		else if (role == 'admin') {
-			var publicKey = this._readAdminInfo(user);
-			if (publicKey) {
+			var admin = this._readAdminInfo(user);
+			if (admin) {
+				var [publicKey,...devices] = Array.isArray(admin) ? admin: [admin];
+
 				st = Number(st) || 0;
 				// utils.assert(Math.abs(Date.now() - st) < 3e4, errno.ERR_ILLEGAL_ACCESS);
 				if (Math.abs(Date.now() - st) > 3e4) {
@@ -86,16 +88,23 @@ class Delegate extends FastMessageTransferCenterDelegate {
 					var thatid = String(fmtService.headers.thatid);
 					console.log('query client', thatid);
 
+					var authResult;
+
 					if (this._insidesDevices[thatid]) {
-						return { name: user, role, fullThatId: thatid };
+						authResult = { name: user, role, fullThatId: thatid };
 					} else {
 						var [data] = await this.m_db.exec(
 							`select device_sn from ch_device where device_sn like '%${thatid}'`);
 						console.log('query mysql ok', thatid);
 						utils.assert(data.rows.length, 'cannot find device');
 						thatid = data.rows[0].device_sn;
+						authResult = { name: user, role, fullThatId: thatid };
 					}
-					return { name: user, role, fullThatId: thatid };
+
+					if (devices.length) {
+						utils.assert(devices.indexOf(authResult.fullThatId) >= 0, 'Insufficient access permissions');
+					}
+					return authResult;
 				} else {
 					console.log('Auth admin fail', user, publicKey.toString('hex'));
 				}
